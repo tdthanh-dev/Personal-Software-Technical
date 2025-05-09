@@ -497,4 +497,241 @@ public class SwaggerConfig
 
 ### 8.2. Tài liệu
 - PostgreSQL Documentation: https://www.postgresql.org/docs/
-- DICOM Standard: https://www.dicomstandard.org/ 
+- DICOM Standard: https://www.dicomstandard.org/
+
+## 9. Cấu trúc cây thư mục chi tiết
+
+Dưới đây là cấu trúc cây thư mục chi tiết của dự án AIDIMS:
+
+```
+AIDIMS.Backend/
+│
+├── AIDIMS.sln                                # Solution file
+│
+├── AIDIMS.API/                               # API Layer
+│   ├── App_Start/                            # Startup configuration
+│   │   ├── AutofacConfig.cs                  # Dependency Injection config
+│   │   ├── RouteConfig.cs                    # Route config
+│   │   ├── WebApiConfig.cs                   # Web API config
+│   │   └── SwaggerConfig.cs                  # Swagger configuration
+│   │
+│   ├── Controllers/                          # API Controllers
+│   │   ├── AuthController.cs                 # Authentication controller
+│   │   ├── PatientController.cs              # Patient management
+│   │   ├── DicomController.cs                # DICOM file management
+│   │   ├── UserController.cs                 # User management
+│   │   └── NotificationController.cs         # Notification management
+│   │
+│   ├── Filters/                              # API Filters
+│   │   ├── AuthenticationFilter.cs           # JWT Authentication
+│   │   ├── ExceptionFilter.cs                # Global exception handling
+│   │   └── LoggingFilter.cs                  # Request/response logging
+│   │
+│   ├── Models/                               # View Models
+│   │   ├── AuthModels.cs                     # Auth models (login, register)
+│   │   └── ErrorModels.cs                    # Error response models
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── Global.asax                           # Application entry point
+│   ├── Global.asax.cs                        # Application startup logic
+│   ├── Web.config                            # Configuration file
+│   ├── Web.Debug.config                      # Debug configuration
+│   ├── Web.Release.config                    # Release configuration
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.API.csproj                     # Project file
+│
+├── AIDIMS.Domain/                            # Domain Layer
+│   ├── Entities/                             # Domain Entities
+│   │   ├── Patient.cs                        # Patient entity
+│   │   ├── DicomFile.cs                      # DICOM file entity
+│   │   ├── User.cs                           # User entity
+│   │   ├── Role.cs                           # Role entity
+│   │   ├── DicomAnnotation.cs                # Annotation entity
+│   │   ├── AIModel.cs                        # AI model entity
+│   │   └── AIAnalysisResult.cs               # Analysis result entity
+│   │
+│   ├── DTOs/                                 # Data Transfer Objects
+│   │   ├── PatientDto.cs                     # Patient DTOs
+│   │   ├── DicomFileDto.cs                   # DICOM file DTOs
+│   │   ├── UserDto.cs                        # User DTOs
+│   │   └── AnalysisResultDto.cs              # Analysis result DTOs
+│   │
+│   ├── Interfaces/                           # Domain Interfaces
+│   │   ├── Repositories/                     # Repository interfaces
+│   │   │   ├── IRepository.cs                # Generic repository interface
+│   │   │   ├── IPatientRepository.cs         # Patient repository interface
+│   │   │   └── IDicomFileRepository.cs       # DICOM repository interface
+│   │   │
+│   │   └── Services/                         # Service interfaces
+│   │       ├── IPatientService.cs            # Patient service interface
+│   │       ├── IDicomService.cs              # DICOM service interface
+│   │       └── IUserService.cs               # User service interface
+│   │
+│   ├── Enums/                                # Enumerations
+│   │   ├── UserRoles.cs                      # User roles enum
+│   │   ├── DicomModality.cs                  # DICOM modality types
+│   │   └── NotificationType.cs               # Notification types
+│   │
+│   ├── Constants/                            # Constants
+│   │   └── SystemConstants.cs                # System-wide constants
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.Domain.csproj                  # Project file
+│
+├── AIDIMS.Data/                              # Data Access Layer
+│   ├── Context/                              # EF Context
+│   │   ├── ApplicationDbContext.cs           # Main DB context
+│   │   └── DesignTimeDbContextFactory.cs     # For EF migrations
+│   │
+│   ├── Repositories/                         # Repository implementations
+│   │   ├── Repository.cs                     # Generic repository
+│   │   ├── PatientRepository.cs              # Patient repository
+│   │   ├── DicomFileRepository.cs            # DICOM file repository
+│   │   ├── UserRepository.cs                 # User repository
+│   │   └── AIAnalysisResultRepository.cs     # AI results repository
+│   │
+│   ├── Configurations/                       # EF Configurations
+│   │   ├── PatientConfiguration.cs           # Patient config
+│   │   ├── DicomFileConfiguration.cs         # DICOM file config
+│   │   ├── UserConfiguration.cs              # User config
+│   │   └── RoleConfiguration.cs              # Role config
+│   │
+│   ├── Migrations/                           # EF Migrations
+│   │   ├── Configuration.cs                  # Migration configuration
+│   │   └── {timestamp}_InitialCreate.cs      # Initial migration
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.Data.csproj                    # Project file
+│
+├── AIDIMS.Core/                              # Business Logic Layer
+│   ├── Managers/                             # Business logic
+│   │   ├── PatientManager.cs                 # Patient business logic
+│   │   ├── DicomManager.cs                   # DICOM business logic
+│   │   └── UserManager.cs                    # User business logic
+│   │
+│   ├── Validators/                           # Validation logic
+│   │   ├── PatientValidator.cs               # Patient validation
+│   │   ├── DicomFileValidator.cs             # DICOM validation
+│   │   └── UserValidator.cs                  # User validation
+│   │
+│   ├── Processors/                           # Domain processors
+│   │   └── NotificationProcessor.cs          # Notification processing
+│   │
+│   ├── Security/                             # Security components
+│   │   ├── PasswordHasher.cs                 # Password hashing
+│   │   └── JwtTokenGenerator.cs              # JWT token generation
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.Core.csproj                    # Project file
+│
+├── AIDIMS.Services/                          # Service Layer
+│   ├── Services/                             # Service implementations
+│   │   ├── PatientService.cs                 # Patient service
+│   │   ├── DicomService.cs                   # DICOM service
+│   │   ├── UserService.cs                    # User service
+│   │   └── NotificationService.cs            # Notification service
+│   │
+│   ├── Profiles/                             # AutoMapper profiles
+│   │   ├── PatientProfile.cs                 # Patient mapping profile
+│   │   ├── DicomFileProfile.cs               # DICOM mapping profile
+│   │   └── UserProfile.cs                    # User mapping profile
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.Services.csproj                # Project file
+│
+├── AIDIMS.DICOM/                             # DICOM Processing Layer
+│   ├── Processing/                           # DICOM processing
+│   │   ├── DicomProcessor.cs                 # Main DICOM processor
+│   │   ├── DicomConverter.cs                 # Format converter
+│   │   └── DicomValidator.cs                 # DICOM validation
+│   │
+│   ├── Metadata/                             # Metadata extraction
+│   │   ├── DicomMetadataExtractor.cs         # Extract metadata
+│   │   └── DicomTagMapping.cs                # DICOM tag mapping
+│   │
+│   ├── Storage/                              # Storage management
+│   │   ├── DicomStorageManager.cs            # Storage management
+│   │   └── ThumbnailGenerator.cs             # Create thumbnails
+│   │
+│   ├── Viewers/                              # Viewing utilities
+│   │   └── DicomImageRenderer.cs             # Render DICOM for web
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.DICOM.csproj                   # Project file
+│
+├── AIDIMS.Common/                            # Common Utilities
+│   ├── Extensions/                           # Extension methods
+│   │   ├── StringExtensions.cs               # String extensions
+│   │   ├── DateTimeExtensions.cs             # DateTime extensions
+│   │   └── EnumerableExtensions.cs           # IEnumerable extensions
+│   │
+│   ├── Helpers/                              # Helper classes
+│   │   ├── FileHelper.cs                     # File operations
+│   │   ├── JsonHelper.cs                     # JSON serialization
+│   │   └── LogHelper.cs                      # Logging helper
+│   │
+│   ├── Logging/                              # Logging
+│   │   └── Logger.cs                         # Logger implementation
+│   │
+│   ├── Utils/                                # Utilities
+│   │   ├── Guard.cs                          # Parameter validation
+│   │   └── AsyncHelper.cs                    # Async utilities
+│   │
+│   ├── Properties/                           # Project properties
+│   │   └── AssemblyInfo.cs
+│   │
+│   ├── packages.config                       # NuGet packages
+│   └── AIDIMS.Common.csproj                  # Project file
+│
+└── AIDIMS.Tests/                             # Test Projects
+    ├── Unit/                                 # Unit Tests
+    │   ├── Core/                             # Core tests
+    │   │   ├── PatientManagerTests.cs        # Patient logic tests
+    │   │   └── UserManagerTests.cs           # User logic tests
+    │   │
+    │   ├── Services/                         # Services tests
+    │   │   ├── PatientServiceTests.cs        # Patient service tests
+    │   │   └── DicomServiceTests.cs          # DICOM service tests
+    │   │
+    │   └── DICOM/                            # DICOM tests
+    │       └── DicomProcessorTests.cs        # DICOM processor tests
+    │
+    ├── Integration/                          # Integration Tests
+    │   ├── API/                              # API tests
+    │   │   ├── PatientControllerTests.cs     # Patient API tests
+    │   │   └── DicomControllerTests.cs       # DICOM API tests
+    │   │
+    │   └── Data/                             # Data layer tests
+    │       └── RepositoryTests.cs            # Repository tests
+    │
+    ├── TestData/                             # Test data
+    │   ├── SampleDicomFiles/                 # Sample DICOM files
+    │   └── TestDataGenerator.cs              # Generate test data
+    │
+    ├── Helpers/                              # Test helpers
+    │   ├── TestDbContext.cs                  # In-memory DB context
+    │   └── MockHelper.cs                     # Mocking helper
+    │
+    ├── Properties/                           # Project properties
+    │   └── AssemblyInfo.cs
+    │
+    ├── packages.config                       # NuGet packages
+    └── AIDIMS.Tests.csproj                   # Project file
+``` 
